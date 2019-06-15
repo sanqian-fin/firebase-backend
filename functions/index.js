@@ -13,12 +13,12 @@ exports.initialCategories = functions.auth.user().onCreate(async (user) => {
   try {
     await Promise.all(
       categories.map((item) => {
+        const { id, ...rest } = item
         const data = {
-          ...item,
-          id: undefined,
-          userId: user.data.uid
+          ...rest,
+          userId: user.uid
         }
-        return admin.firestore().collection('categories').doc(item.id).set(data)
+        return admin.firestore().collection('categories').doc(id).set(data)
       })
     )
     console.log('Initial Categories Success')
@@ -30,12 +30,12 @@ exports.initialCategories = functions.auth.user().onCreate(async (user) => {
 
 exports.createFirstAccount = functions.auth.user().onCreate(async (user) => {
   const userDoc = {
-    email: user.data.email,
+    email: user.email,
   }
   try {
     const result  = await admin.firestore()
       .collection('users')
-      .doc(user.data.uid)
+      .doc(user.uid)
       .set(userDoc)
     console.log('User Created result:', result)
   } catch(err) {

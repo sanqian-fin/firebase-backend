@@ -31,7 +31,6 @@ module.exports = [{
   name: 'Fee',
   icon: 'FaQuestionCircle',
 }, {
-}, {
   id: 'Donate',
   name: 'Donate',
   icon: 'FaQuestionCircle',
