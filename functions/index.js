@@ -29,15 +29,16 @@ exports.initialCategories = functions.auth.user().onCreate(async (user) => {
 });
 
 exports.createFirstAccount = functions.auth.user().onCreate(async (user) => {
-  const userDoc = {
-    email: user.email,
+  const account = {
+    userId: user.uid,
+    name: 'My Account'
   }
+
   try {
     const result  = await admin.firestore()
-      .collection('users')
-      .doc(user.uid)
-      .set(userDoc)
-    console.log('User Created result:', result)
+      .collection('accounts')
+      .add(account)
+    console.log('First Account Created result:', result)
   } catch(err) {
     console.log(err)
     return
