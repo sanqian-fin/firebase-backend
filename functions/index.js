@@ -9,24 +9,24 @@ admin.initializeApp();
 
 // });
 
-exports.initialCategories = functions.auth.user().onCreate(async (user) => {
-  try {
-    await Promise.all(
-      categories.map((item) => {
-        const { id, ...rest } = item
-        const data = {
-          ...rest,
-          userId: user.uid
-        }
-        return admin.firestore().collection('categories').doc(id).set(data)
-      })
-    )
-    console.log('Initial Categories Success')
-  } catch (err) {
-    console.log(err)
-    return
-  }
-});
+// exports.initialCategories = functions.auth.user().onCreate(async (user) => {
+//   try {
+//     await Promise.all(
+//       categories.map((item) => {
+//         const { id, ...rest } = item
+//         const data = {
+//           ...rest,
+//           userId: user.uid
+//         }
+//         return admin.firestore().collection('categories').doc(id).set(data)
+//       })
+//     )
+//     console.log('Initial Categories Success')
+//   } catch (err) {
+//     console.log(err)
+//     return
+//   }
+// });
 
 exports.createFirstAccount = functions.auth.user().onCreate(async (user) => {
   const account = {
